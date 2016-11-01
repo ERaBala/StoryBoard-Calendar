@@ -10,4 +10,9 @@
 
 @interface CalendarLogVC : UIViewController
 
+- (IBAction)PrevMonth:(id)sender;
+- (IBAction)NextMonth:(id)sender;
+- (IBAction)LastDate:(id)sender;
+- (IBAction)ThisMonth:(id)sender;
+
 @end

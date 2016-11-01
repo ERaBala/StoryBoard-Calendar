@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="iRt-Bl-Hy9">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
@@ -167,10 +167,10 @@
             </objects>
             <point key="canvasLocation" x="555" y="432.5"/>
         </scene>
-        <!--View Controller-->
+        <!--Calendar LogVC-->
         <scene sceneID="8vY-8c-0r0">
             <objects>
-                <viewController id="iRt-Bl-Hy9" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="CalendarLogVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="iRt-Bl-Hy9" customClass="CalendarLogVC" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="2HJ-OJ-gt6"/>
                         <viewControllerLayoutGuide type="bottom" id="tae-lU-VVZ"/>
@@ -178,6 +178,45 @@
                     <view key="view" contentMode="scaleToFill" id="VxO-ur-g05">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BEi-UY-3wp">
+                                <frame key="frameInset" minX="224" minY="28" width="80" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Next Month"/>
+                                <connections>
+                                    <action selector="NextMonth:" destination="iRt-Bl-Hy9" eventType="touchUpInside" id="KJX-0h-2F6"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fS3-zA-nbf">
+                                <frame key="frameInset" minX="17" minY="81" width="77" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="This Month"/>
+                                <connections>
+                                    <action selector="ThisMonth:" destination="iRt-Bl-Hy9" eventType="touchUpInside" id="jFn-5U-cfS"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4dy-p6-rn9">
+                                <frame key="frameInset" minX="234" minY="81" width="60" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Last Day"/>
+                                <connections>
+                                    <action selector="LastDate:" destination="iRt-Bl-Hy9" eventType="touchUpInside" id="kx4-Jo-4ZQ"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eqP-ga-LTB">
+                                <frame key="frameInset" minX="16" minY="28" width="79" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Prev Month"/>
+                                <connections>
+                                    <action selector="PrevMonth:" destination="iRt-Bl-Hy9" eventType="touchUpInside" id="eBW-kT-xiW"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tPU-MB-FGy">
+                                <frame key="frameInset" minX="137" minY="131" width="46" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                 </viewController>
