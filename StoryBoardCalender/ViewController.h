@@ -7,9 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CollectionViewCell.h"
 
 @interface ViewController : UIViewController
+{
+    NSArray * Dates ;
+    NSArray * price ;
+}
 
+@property (weak, nonatomic) IBOutlet UICollectionView *CollectionView;
 
 @end
 

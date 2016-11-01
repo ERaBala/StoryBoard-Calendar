@@ -7,15 +7,21 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		84313B611DBA155000AD4780 /* CollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 84313B601DBA155000AD4780 /* CollectionViewCell.m */; };
 		8468C2C41DB0AD2D002831CE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8468C2C31DB0AD2D002831CE /* main.m */; };
 		8468C2C71DB0AD2D002831CE /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8468C2C61DB0AD2D002831CE /* AppDelegate.m */; };
 		8468C2CA1DB0AD2D002831CE /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8468C2C91DB0AD2D002831CE /* ViewController.m */; };
 		8468C2CD1DB0AD2D002831CE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8468C2CB1DB0AD2D002831CE /* Main.storyboard */; };
 		8468C2CF1DB0AD2D002831CE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8468C2CE1DB0AD2D002831CE /* Assets.xcassets */; };
 		8468C2D21DB0AD2D002831CE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8468C2D01DB0AD2D002831CE /* LaunchScreen.storyboard */; };
+		847EA9751DC879E300DFE6C7 /* CollectionReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 847EA9741DC879E300DFE6C7 /* CollectionReusableView.m */; };
+		84F6501F1DC89D46003CCA52 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84F6501E1DC89D46003CCA52 /* QuartzCore.framework */; };
+		84F650221DC8A491003CCA52 /* CalendarLogVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 84F650211DC8A491003CCA52 /* CalendarLogVC.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		84313B5F1DBA155000AD4780 /* CollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CollectionViewCell.h; sourceTree = "<group>"; };
+		84313B601DBA155000AD4780 /* CollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CollectionViewCell.m; sourceTree = "<group>"; };
 		8468C2BF1DB0AD2D002831CE /* StoryBoardCalender.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StoryBoardCalender.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8468C2C31DB0AD2D002831CE /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		8468C2C51DB0AD2D002831CE /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -26,6 +32,11 @@
 		8468C2CE1DB0AD2D002831CE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8468C2D11DB0AD2D002831CE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8468C2D31DB0AD2D002831CE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		847EA9731DC879E300DFE6C7 /* CollectionReusableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CollectionReusableView.h; sourceTree = "<group>"; };
+		847EA9741DC879E300DFE6C7 /* CollectionReusableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CollectionReusableView.m; sourceTree = "<group>"; };
+		84F6501E1DC89D46003CCA52 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		84F650201DC8A491003CCA52 /* CalendarLogVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalendarLogVC.h; sourceTree = "<group>"; };
+		84F650211DC8A491003CCA52 /* CalendarLogVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalendarLogVC.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -33,6 +44,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84F6501F1DC89D46003CCA52 /* QuartzCore.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -44,6 +56,7 @@
 			children = (
 				8468C2C11DB0AD2D002831CE /* StoryBoardCalender */,
 				8468C2C01DB0AD2D002831CE /* Products */,
+				84F6501D1DC89D46003CCA52 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -58,11 +71,11 @@
 		8468C2C11DB0AD2D002831CE /* StoryBoardCalender */ = {
 			isa = PBXGroup;
 			children = (
-				8468C2C51DB0AD2D002831CE /* AppDelegate.h */,
-				8468C2C61DB0AD2D002831CE /* AppDelegate.m */,
-				8468C2C81DB0AD2D002831CE /* ViewController.h */,
-				8468C2C91DB0AD2D002831CE /* ViewController.m */,
 				8468C2CB1DB0AD2D002831CE /* Main.storyboard */,
+				847EA9761DC87A0600DFE6C7 /* AppDelegate */,
+				847EA9771DC87A1900DFE6C7 /* Collectionview */,
+				84F650201DC8A491003CCA52 /* CalendarLogVC.h */,
+				84F650211DC8A491003CCA52 /* CalendarLogVC.m */,
 				8468C2CE1DB0AD2D002831CE /* Assets.xcassets */,
 				8468C2D01DB0AD2D002831CE /* LaunchScreen.storyboard */,
 				8468C2D31DB0AD2D002831CE /* Info.plist */,
@@ -77,6 +90,36 @@
 				8468C2C31DB0AD2D002831CE /* main.m */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		847EA9761DC87A0600DFE6C7 /* AppDelegate */ = {
+			isa = PBXGroup;
+			children = (
+				8468C2C51DB0AD2D002831CE /* AppDelegate.h */,
+				8468C2C61DB0AD2D002831CE /* AppDelegate.m */,
+			);
+			name = AppDelegate;
+			sourceTree = "<group>";
+		};
+		847EA9771DC87A1900DFE6C7 /* Collectionview */ = {
+			isa = PBXGroup;
+			children = (
+				8468C2C81DB0AD2D002831CE /* ViewController.h */,
+				8468C2C91DB0AD2D002831CE /* ViewController.m */,
+				84313B5F1DBA155000AD4780 /* CollectionViewCell.h */,
+				84313B601DBA155000AD4780 /* CollectionViewCell.m */,
+				847EA9731DC879E300DFE6C7 /* CollectionReusableView.h */,
+				847EA9741DC879E300DFE6C7 /* CollectionReusableView.m */,
+			);
+			name = Collectionview;
+			sourceTree = "<group>";
+		};
+		84F6501D1DC89D46003CCA52 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				84F6501E1DC89D46003CCA52 /* QuartzCore.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -110,6 +153,7 @@
 				TargetAttributes = {
 					8468C2BE1DB0AD2D002831CE = {
 						CreatedOnToolsVersion = 7.3.1;
+						DevelopmentTeam = ESS76MX5U7;
 					};
 				};
 			};
@@ -150,7 +194,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				8468C2CA1DB0AD2D002831CE /* ViewController.m in Sources */,
+				847EA9751DC879E300DFE6C7 /* CollectionReusableView.m in Sources */,
 				8468C2C71DB0AD2D002831CE /* AppDelegate.m in Sources */,
+				84F650221DC8A491003CCA52 /* CalendarLogVC.m in Sources */,
+				84313B611DBA155000AD4780 /* CollectionViewCell.m in Sources */,
 				8468C2C41DB0AD2D002831CE /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -265,9 +312,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = ESS76MX5U7;
 				INFOPLIST_FILE = StoryBoardCalender/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = eawrrMbf.StoryBoardCalender;
+				PRODUCT_BUNDLE_IDENTIFIER = com.savio.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -276,9 +325,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = ESS76MX5U7;
 				INFOPLIST_FILE = StoryBoardCalender/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = eawrrMbf.StoryBoardCalender;
+				PRODUCT_BUNDLE_IDENTIFIER = com.savio.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -302,6 +353,7 @@
 				8468C2D81DB0AD2D002831CE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
