@@ -10,6 +10,7 @@
 
 @interface CalendarLogVC ()
 {
+    
     NSDateComponents *components;
     NSCalendar *calendar;
     long thisMonth;
@@ -29,17 +30,23 @@
      thisYear = [components year];
      thisMonth = [components month];
     
+    NSDate *date = [NSDate date];
+    NSCalendar *gregorian = [NSCalendar currentCalendar];
+    NSDateComponents *dateComponents = [gregorian components:(NSDayCalendarUnit|NSMonthCalendarUnit|NSYearCalendarUnit) fromDate:date];
+    NSInteger day = [dateComponents month];
+    
+    
     for (int month = 1; month <= 12; month++) {
         
         NSDate *today = [NSDate date];
         NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
         [dateFormat setDateFormat:@"MMM yyyy"];
         NSString *dateString = [dateFormat stringFromDate:today];
-        NSLog(@"date: **** 8888 **** %@ **** %ld", dateString,thisMonth );
+        NSLog(@"date: **** 8888 **** %@ **** %d", dateString,month );
         
-        NSLog(@"%d",month);
+        NSLog(@"%ld",(long)day+1);
 
-    }
+    } 
     
     [self getTodayFunction];
     

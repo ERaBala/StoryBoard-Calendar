@@ -9,13 +9,15 @@
 #import <UIKit/UIKit.h>
 #import "CollectionViewCell.h"
 
-@interface ViewController : UIViewController
+@interface ViewController : UIViewController <UICollectionViewDelegate,UICollectionViewDataSource>
 {
     NSArray * Dates ;
     NSArray * price ;
 }
 
 @property (weak, nonatomic) IBOutlet UICollectionView *CollectionView;
+@property (nonatomic) CGFloat lastContentOffset;
+@property (nonatomic, strong) NSIndexPath *selectedItemIndexPath;
 
 @end
 
