@@ -22,24 +22,26 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
         calendar = [NSCalendar currentCalendar];
         components = [[NSCalendar currentCalendar] components:NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear fromDate:[NSDate date]];
     
      thisYear = [components year];
      thisMonth = [components month];
     
-    for (long month = thisMonth + 1; month <= 12; month++) {
-        NSLog(@"%ld",month);
- 
-        if (month == 12) {
-            thisMonth = 1;
-        }else if (thisMonth == 11) {
-            return ;
-        }
+    for (int month = 1; month <= 12; month++) {
+        
+        NSDate *today = [NSDate date];
+        NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+        [dateFormat setDateFormat:@"MMM yyyy"];
+        NSString *dateString = [dateFormat stringFromDate:today];
+        NSLog(@"date: **** 8888 **** %@ **** %ld", dateString,thisMonth );
+        
+        NSLog(@"%d",month);
+
     }
     
     [self getTodayFunction];
-    [self monthCalculation];
     
     }
 
@@ -47,9 +49,10 @@
 -(void) getTodayFunction{
     NSDate *today = [NSDate date];
     NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
-    [dateFormat setDateFormat:@"EEE dd/MM/yyyy"];
+    [dateFormat setDateFormat:@"EEE MMM yyyy"];
     NSString *dateString = [dateFormat stringFromDate:today];
     NSLog(@"date: **** 8888 **** %@", dateString);
+
 }
 
 
@@ -66,6 +69,37 @@
 
 }
 
+
+-(void)monthInWords{
+    
+  
+    NSString *dateStr = @"2011-08-26";
+    //if you have date then,
+    dateStr = [NSString stringWithFormat:@"%@",dateStr];
+    
+    
+    
+    NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+    [dateFormat setDateFormat:@"YYYY-MM-dd HH:mm:ss"];
+    NSDate *date = [dateFormat dateFromString:dateStr];
+    [dateFormat setDateFormat:@"MMMM dd, YYYY"];
+    NSString* temp = [dateFormat stringFromDate:date];
+    
+    
+    
+    NSLog(@"%@",temp);
+
+
+}
+-(void)thisMonthCount{
+    
+    NSCalendar *cal = [NSCalendar autoupdatingCurrentCalendar];
+    NSRange range = [cal rangeOfUnit:NSDayCalendarUnit inUnit:NSMonthCalendarUnit forDate:[NSDate date]];
+    NSUInteger numberOfDaysInMonth = range.length;
+    NSLog(@"%lu",(unsigned long)numberOfDaysInMonth);
+    NSLog(@"my range is %@", NSStringFromRange(range));
+}
+
 - (IBAction)PrevMonth:(id)sender {
     
 
@@ -77,8 +111,9 @@
 }
 
 - (IBAction)LastDate:(id)sender {
-    
-/*    NSDate           *today           = [NSDate date];
+/*    
+ 
+    NSDate           *today           = [NSDate date];
     NSCalendar       *currentCalendar = [NSCalendar currentCalendar];
     NSDateComponents * components = [[NSCalendar currentCalendar] components:NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear fromDate:[NSDate date]];
 
@@ -86,13 +121,15 @@
     int currentmonth=[components month];
     NSLog(@"current Month %d",currentmonth);
     for(int months = currentmonth - 1; months < 12; months++)
-        NSLog(@"%@ %i",[[dateFormatter monthSymbols]objectAtIndex: months],currentYear);*/
-    
-    
+ {
+     NSLog(@"%@ %i",[[dateFormatter monthSymbols]objectAtIndex: months],currentYear);
+ }
+ 
+ */
 }
+
+
 - (IBAction)ThisMonth:(id)sender {
-
-
 
 }
 
