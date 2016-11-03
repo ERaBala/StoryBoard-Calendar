@@ -114,6 +114,23 @@
 
 - (IBAction)NextMonth:(id)sender {
     
+    NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+    
+    NSDateComponents *dateComp = [gregorian components:(NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit) fromDate:[NSDate date]];
+
+    NSLog(@"Input Date: %@",[NSDate date]);
+    
+    
+    [dateComp setMonth:dateComp.month + 1];
+    
+    if (dateComp.month > 12) {
+        [dateComp setYear:dateComp.year + 1];
+        NSLog(@"Month %ld %ld",(long)dateComp.month,dateComp.year);
+    }
+    
+    NSDate *nextMonthMinusOneday = [gregorian dateFromComponents:dateComp];
+    
+    NSLog(@"Output date %@",nextMonthMinusOneday);
     
 }
 

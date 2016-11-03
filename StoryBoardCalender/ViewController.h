@@ -11,7 +11,7 @@
 
 @interface ViewController : UIViewController <UICollectionViewDelegate,UICollectionViewDataSource>
 {
-    NSArray * Dates ;
+    NSArray * Dates, * febDates ;
     NSArray * price ;
 }
 
