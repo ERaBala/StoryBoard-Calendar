@@ -88,7 +88,6 @@
 }
 
 
-
 #pragma mark - UICollectionReusableView
 
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
@@ -100,19 +99,8 @@
         CollectionReusableView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"ReusableView" forIndexPath:indexPath];
         
         NSDate *today = [NSDate date];
-        NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
-        [dateFormat setDateFormat:@"MMM yyyy"];
-        NSString *dateString = [dateFormat stringFromDate:today];
-        
-        NSDate *generatedDate = [dateFormat dateFromString:dateString];
-//        NSLog(@"%@", [dateFormat stringFromDate:generatedDate]);
-//        NSLog(@"date: **** 8888 **** %@", generatedDate);
-       
-        
-         
-//         NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
-        
         NSDateComponents *dateComp = [[NSCalendar currentCalendar] components: NSCalendarUnitMonth | NSCalendarUnitYear fromDate:today];
+        
         [dateComp setMonth: dateComp.month + indexPath.section];
         NSLog(@"Input Date: %@",dateComp);
         if (dateComp.month > 12) {
@@ -160,7 +148,6 @@
         NSLog(@"Month %ld %ld",(long)dateComp.month,(long)dateComp.year);
         }
         
-        
         NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
         NSLog(@"%@",[[formatter monthSymbols] objectAtIndex:(thisMonth - 1)]);
         
@@ -169,8 +156,6 @@
         NSString *monthName = [[df monthSymbols] objectAtIndex:(dateComp.month-1)];
 
             NSString *title = [[NSString alloc]initWithFormat:@"%@ %ld ", monthName, (long)dateComp.year]; //%i", indexPath.section + 1
-        thisMonth = dateComp.month;
-        thisYear = dateComp.year;
             headerView.MonthLabel.text = title;
 
         
