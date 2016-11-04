@@ -87,21 +87,7 @@
     return [Dates count];
 }
 
-#pragma mark - UICollectionViewDelegate
 
-- (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath
-{
-    UICollectionViewCell *datasetCell =[collectionView cellForItemAtIndexPath:indexPath];
-    datasetCell.backgroundColor = [UIColor whiteColor]; // Default color
-}
-
-- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
-{
-    UICollectionViewCell *datasetCell =[collectionView cellForItemAtIndexPath:indexPath];
-    datasetCell.backgroundColor = [UIColor lightGrayColor]; // highlight selection
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    NSLog(@"%@ %ld ", [[formatter monthSymbols] objectAtIndex:indexPath.section], thisYear);
-}
 
 #pragma mark - UICollectionReusableView
 
@@ -130,52 +116,61 @@
         [dateComp setMonth: dateComp.month + indexPath.section];
         NSLog(@"Input Date: %@",dateComp);
         if (dateComp.month > 12) {
-            if (dateComp.month >= 13) {
-                int i = dateComp.month - 1;
-                [dateComp setMonth:1];
-                NSLog(@"(((((((((((((((((( ******* ******* ********* ))))))))))))))))))) ");
+            switch (dateComp.month) {
+                case 13:
+                    [dateComp setMonth:1];
+                    break;
+                case 14:
+                    [dateComp setMonth:2];
+                    break;
+                case 15:
+                    [dateComp setMonth:3];
+                    break;
+                case 16:
+                    [dateComp setMonth:4];
+                    break;
+                case 17:
+                    [dateComp setMonth:5];
+                    break;
+                case 18:
+                    [dateComp setMonth:6];
+                    break;
+                case 19:
+                    [dateComp setMonth:7];
+                    break;
+                case 20:
+                    [dateComp setMonth:8];
+                    break;
+                case 21:
+                    [dateComp setMonth:9];
+                    break;
+                case 22:
+                    [dateComp setMonth:10];
+                    break;
+                case 23:
+                    [dateComp setMonth:11];
+                    break;
+                default:
+                    break;
             }
+            
             [dateComp setYear:dateComp.year + 1];
             NSLog(@"Month %ld %ld",(long)dateComp.month,(long)dateComp.year);
         }else{
         NSLog(@"Month %ld %ld",(long)dateComp.month,(long)dateComp.year);
         }
         
-        /*
-         [dateComp setMonth:dateComp.month + 1];
-         
-         if (dateComp.month > 12) {
-         [dateComp setYear:dateComp.year + 1];
-         NSLog(@"Month %ld %ld",(long)dateComp.month,dateComp.year);
-         }
-         
-         NSDate *nextMonthMinusOneday = [gregorian dateFromComponents:dateComp];
-         
-         NSLog(@"Output date %@",nextMonthMinusOneday);
-
-         
-         */
-        
-/*
-#warning Check UIScrollViewDelegate 
-        
-        CGPoint translation = [collectionView.panGestureRecognizer translationInView:collectionView.superview];
-        if (translation.y > 0) {
-            NSLog(@"up");
-            [self UpdateCalendarMonthYearup];
-        } else {
-            NSLog(@"Down");
-            [self UpdateCalendarMonthYeardown];
-        }
-*/
-//        [self UpdateCalendarMonthYear:indexPath.section + 1];
-       
         
         NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
         NSLog(@"%@",[[formatter monthSymbols] objectAtIndex:(thisMonth - 1)]);
         
         // Set title for ReusableView in collection view
-            NSString *title = [[NSString alloc]initWithFormat:@"%@ %ld ", [[formatter monthSymbols] objectAtIndex:indexPath.section], (long)dateComp.year]; //%i", indexPath.section + 1
+        NSDateFormatter *df = [[NSDateFormatter alloc] init];
+        NSString *monthName = [[df monthSymbols] objectAtIndex:(dateComp.month-1)];
+
+            NSString *title = [[NSString alloc]initWithFormat:@"%@ %ld ", monthName, (long)dateComp.year]; //%i", indexPath.section + 1
+        thisMonth = dateComp.month;
+        thisYear = dateComp.year;
             headerView.MonthLabel.text = title;
 
         
@@ -187,6 +182,25 @@
     
     return reusableview;
 }
+
+
+#pragma mark - UICollectionViewDelegate
+
+- (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    UICollectionViewCell *datasetCell =[collectionView cellForItemAtIndexPath:indexPath];
+    datasetCell.backgroundColor = [UIColor whiteColor]; // Default color
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    UICollectionViewCell *datasetCell =[collectionView cellForItemAtIndexPath:indexPath];
+    datasetCell.backgroundColor = [UIColor lightGrayColor]; // highlight selection
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    NSLog(@"%ld %ld ", thisMonth, thisYear);
+}
+
+
 
 -(NSString *)monthinwords:(NSInteger *) monthinnumbers{
     
@@ -203,56 +217,4 @@
     
     return stringFromDate;
 }
-
--(void) UpdateCalendarMonthYear: (long *) some{
-    
-    if(thisMonth>12){ thisMonth=1; thisYear++; }
-    if(thisMonth<1) { thisMonth=12; thisYear--; }
-}
-
--(void) UpdateCalendarMonthYearup{
-    
-    if(thisMonth>1){
-        thisMonth=1;
-        thisYear--;
-    }
-    
-    if(thisMonth<12){
-        thisMonth=12;
-        thisYear++;
-    }
-}
-
--(void) UpdateCalendarMonthYeardown{
-    
-    if(thisMonth>12){
-        thisMonth=1;
-        thisYear++;
-    }
-    
-    if(thisMonth<1){
-        thisMonth=12;
-        thisYear--;
-    }
-}
-
-
-
-#pragma mark - UIScrollViewDelegate
-/*
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView
-{
-    if (self.lastContentOffset > scrollView.contentOffset.y)
-    {
-        [self UpdateCalendarMonthYearup];
-    }
-    else if (self.lastContentOffset < scrollView.contentOffset.y)
-    {
-        [self UpdateCalendarMonthYeardown];
-    }
-    
-    self.lastContentOffset = scrollView.contentOffset.y;
-}
-*/
-
 @end
