@@ -84,7 +84,24 @@
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
-    return [Dates count];
+    switch (section) {
+        case 0:
+            
+            return [Dates count];
+            break;
+            
+        case 1:
+            return [febDates count];
+            break;
+            
+        case 2:
+            return [febDates count];
+            break;
+            
+        default:
+             return [Dates count];
+            break;
+    }
 }
 
 
@@ -105,41 +122,18 @@
         NSLog(@"Input Date: %@",dateComp);
         if (dateComp.month > 12) {
             switch (dateComp.month) {
-                case 13:
-                    [dateComp setMonth:1];
-                    break;
-                case 14:
-                    [dateComp setMonth:2];
-                    break;
-                case 15:
-                    [dateComp setMonth:3];
-                    break;
-                case 16:
-                    [dateComp setMonth:4];
-                    break;
-                case 17:
-                    [dateComp setMonth:5];
-                    break;
-                case 18:
-                    [dateComp setMonth:6];
-                    break;
-                case 19:
-                    [dateComp setMonth:7];
-                    break;
-                case 20:
-                    [dateComp setMonth:8];
-                    break;
-                case 21:
-                    [dateComp setMonth:9];
-                    break;
-                case 22:
-                    [dateComp setMonth:10];
-                    break;
-                case 23:
-                    [dateComp setMonth:11];
-                    break;
-                default:
-                    break;
+                case 13: [dateComp setMonth:1]; break;
+                case 14: [dateComp setMonth:2]; break;
+                case 15: [dateComp setMonth:3]; break;
+                case 16: [dateComp setMonth:4]; break;
+                case 17: [dateComp setMonth:5]; break;
+                case 18: [dateComp setMonth:6]; break;
+                case 19: [dateComp setMonth:7]; break;
+                case 20: [dateComp setMonth:8]; break;
+                case 21: [dateComp setMonth:9]; break;
+                case 22: [dateComp setMonth:10]; break;
+                case 23: [dateComp setMonth:11]; break;
+                default: break;
             }
             
             [dateComp setYear:dateComp.year + 1];
@@ -157,8 +151,11 @@
 
             NSString *title = [[NSString alloc]initWithFormat:@"%@ %ld ", monthName, (long)dateComp.year]; //%i", indexPath.section + 1
             headerView.MonthLabel.text = title;
-
         
+        NSMutableArray * MonthsArray = [[NSMutableArray alloc] init];
+        [MonthsArray addObject:title];
+        NSLog(@"%@",MonthsArray);
+
 //        headerView.layer.borderWidth=0f;
         headerView.layer.borderColor=[UIColor lightGrayColor].CGColor;
         
