@@ -10,10 +10,6 @@
 #import "CollectionViewCell.h"
 
 @interface ViewController : UIViewController <UICollectionViewDelegate,UICollectionViewDataSource>
-{
-    NSArray * Dates, * febDates ;
-    NSArray * price ;
-}
 
 @property (weak, nonatomic) IBOutlet UICollectionView *CollectionView;
 @property (nonatomic) CGFloat lastContentOffset;
