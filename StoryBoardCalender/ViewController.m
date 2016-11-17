@@ -11,14 +11,17 @@
 
 @interface ViewController () <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout>
 {
-    NSDateComponents *components;
     NSCalendar *calendar;
-    NSMutableArray * MonthsArray;
-    NSArray * Dates, * febDates ;
-    NSArray * price ;
-    long thisMonth;
-    long thisYear;
-    int i;
+    NSDateComponents *components;
+    
+    NSMutableArray * MonthsArray, * NooFDaysInMonth, * StartingweekDateofMonth, * MonthArrayinFormate;
+    NSMutableArray * dateForCount, * Dates ;
+    int integers, NoFodays, i, SortCount;
+    NSMutableArray * SecondArrayDays;
+    NSArray * sortedDateArrayForSelection;
+    NSString * selectionString ;
+    NSMutableArray * CompareArrayValue;
+    BOOL flag;
 }
 @end
 
@@ -27,8 +30,21 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    MonthsArray = [[NSMutableArray alloc] init];
-     
+    MonthsArray                 = [[NSMutableArray alloc] init];
+    NooFDaysInMonth             = [[NSMutableArray alloc] init];
+    StartingweekDateofMonth     = [[NSMutableArray alloc]init];
+    Dates                       = [[NSMutableArray alloc]init];
+    dateForCount                = [[NSMutableArray alloc]init];
+    MonthArrayinFormate         = [[NSMutableArray alloc]init];
+    CompareArrayValue           = [[NSMutableArray alloc] init];
+    sortedDateArrayForSelection = [[NSArray alloc] init];
+    
+    
+    _CollectionView.dataSource   = self;
+    _CollectionView.delegate     = self;
+
+    SortCount = 0;
+    
      NSDate *today = [NSDate date];
      NSDateComponents *dateComp = [[NSCalendar currentCalendar] components: NSCalendarUnitMonth | NSCalendarUnitYear fromDate:today];
     
@@ -64,89 +80,117 @@
             NSLog(@"Month %ld %ld",(long)dateComp.month,(long)dateComp.year);
         }
         
-        // Set title for ReusableView in collection view
         NSDateFormatter *DateFormate = [[NSDateFormatter alloc] init];
         NSString *monthName = [[DateFormate monthSymbols] objectAtIndex:(dateComp.month-1)];
         monthName = [NSString stringWithFormat: @"%@ %ld", monthName, (long)dateComp.year];
         
-        NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
-        [dateFormat setDateFormat:@"MM yyyy"];
-        NSDate *monthCalculationDate = [dateFormat dateFromString:monthName];
+        /*      Number Of days in the month     */
+        NoFodays = [self dateToFormatedDate:(long)dateComp.month Year:(long)dateComp.year];
+        //        NSLog(@"%@ === in this year no of days === %d",monthName,NoFodays);
         
-        NSLog(@"%@",monthCalculationDate);
+        NSString * firstDateOfMonth = [self weekCalculationFormatterFullStyle:(long)dateComp.month Year:(long)dateComp.year];
         
-        NSRange range = [calendar rangeOfUnit:NSCalendarUnitDay inUnit:NSCalendarUnitMonth forDate:monthCalculationDate];
-        NSLog(@"%@ == %d",dateComp,(int)range.length);
+        /*  ADDING   */
+        if (NoFodays != 0) {
+            [NooFDaysInMonth addObject:[NSNumber numberWithInt: NoFodays]];
+        }
         
-//        NSDate *today = [NSDate date]; //Get a date object for today's date
-//        NSCalendar *c = [NSCalendar currentCalendar];
-//        NSRange days = [c rangeOfUnit:NSDayCalendarUnit
-//                               inUnit:NSMonthCalendarUnit
-//                              forDate:today];
-//        NSLog(@"%@ == %d",dateComp,(int)days.length);
-
-        [MonthsArray addObject:monthCalculationDate];
-       
+        [MonthsArray addObject:monthName];
+        [StartingweekDateofMonth addObject:firstDateOfMonth];
+        
     }
     
     NSLog(@"%@",MonthsArray);
     
-    Dates = [NSArray arrayWithObjects:@"1", @"2", @"3",@"4",@"5", @"6",@"7",@"8",@"9",@"10",@"11", @"12", @"13",@"14",@"15", @"16",@"17",@"18",@"19",@"20",@"21", @"22", @"23",@"24",@"25", @"26",@"27",@"28",@"29",@"30",@"31", nil];
-    
-    febDates = [NSArray arrayWithObjects:@"1", @"2", @"3",@"4",@"5", @"6",@"7",@"8",@"9",@"10",@"11", @"12", @"13",@"14",@"15", @"16",@"17",@"18",@"19",@"20",@"21", @"22", @"23",@"24",@"25", @"26",@"27",@"28", nil];
-    
-    price = [NSArray arrayWithObjects:@" ", @"11111", @"22222",@"33333",@"44444", @"55555",@"66666", @"77777", @"88888",@"99999",@"98765", @"45789",@"2312", @"35627", @"09872",@"99999",@"99999", @"99999",@"2312", @"35627", @"09872",@"99999",@"99999", @"99999",@"77708",@"88888",@"99999", @"99999",@"2312", @"35627", @"09872", nil];
-    
+    NSLog(@"%@ \n\n %@ \n\n %@",MonthsArray,NooFDaysInMonth,StartingweekDateofMonth);
     UICollectionViewFlowLayout *collectionViewLayout = (UICollectionViewFlowLayout*)self.CollectionView.collectionViewLayout;
     collectionViewLayout.sectionInset = UIEdgeInsetsMake(0, 0, 20, 1);
     
-    thisYear = [[[NSCalendar currentCalendar] components:NSCalendarUnitYear fromDate:[NSDate date]] year];
+}
+
+-(NSString *) weekCalculationFormatterFullStyle : (long)month Year:(long)year{
     
     NSCalendar *cal = [NSCalendar currentCalendar];
-    components = [cal components:NSCalendarUnitMonth fromDate:[NSDate date]];
-    thisMonth=[components month];
- }
+    
+    // Start of week:
+    NSDateComponents *comp = [[NSDateComponents alloc] init];
+    comp.day = 1;
+    comp.month = month; // <-- fill in your week number here
+    comp.year = year;    // <-- fill in your year here
+    NSDate *startOfWeek = [cal dateFromComponents:comp];
+    
+    // Show results:
+    NSDateFormatter *fmt = [[NSDateFormatter alloc] init];
+    fmt.dateStyle = NSDateIntervalFormatterFullStyle;
+    
+    //    NSLog(@"%@", [fmt stringFromDate:startOfWeek]);   Starting of week
+    //    NSLog(@"%@", [fmt stringFromDate:endOfWeek]);     Ending of week
+    
+    NSString *string = [fmt stringFromDate:startOfWeek];
+    NSString *match = @",";
+    NSString *preTel;
+    
+    NSScanner *scanner = [NSScanner scannerWithString:string];
+    [scanner scanUpToString:match intoString:&preTel];
+    //    NSLog(@"preTel: %@", preTel);                      Take week value alone line Sunday.. Monday..
+    
+    return preTel;
+}
+
+-(int)dateToFormatedDate:(long)month Year:(long)year {
+    
+    calendar = [NSCalendar currentCalendar];
+    components = [[NSDateComponents alloc] init];
+    
+    // Set your year and month here
+    [components setYear:year];
+    [components setMonth:month];
+    
+    NSDate *date = [calendar dateFromComponents:components];
+    NSRange range = [calendar rangeOfUnit:NSCalendarUnitDay inUnit:NSCalendarUnitMonth forDate:date];
+    
+    //    NSLog(@"%d", (int)range.length);
+    return (int)range.length;
+}
+
+- (NSDate *)returnDateForMonth:(NSInteger)month year:(NSInteger)year day:(NSInteger)day {
+    
+    components = [[NSDateComponents alloc] init];
+    
+    [components setDay:day];
+    [components setMonth:month];
+    [components setYear:year];
+    
+    NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+    return [gregorian dateFromComponents:components];
+}
 
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *identifier = @"cell";
-    CollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath];
+    CollectionViewCell * Cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"cell" forIndexPath:indexPath];
     
-/*    for ( ; i < Dates.count; i++) {
-        if ([Dates[i]  isEqual: @" "]) {
-       
-            NSLog(@"Nothing ");
-        }else{}
+    //      next line will be connect to collection view image like @property */
+    NSArray * arrayofMutable = [dateForCount objectAtIndex:indexPath.section];
+    
+    if([arrayofMutable count] > 0 && [arrayofMutable count] > indexPath.row){
+        long checkValue = [[arrayofMutable objectAtIndex:indexPath.row]integerValue];
+        
+        if(checkValue == 0){
+            
+            Cell.Date.text = @" ";
+            Cell.layer.borderWidth=1.0f;
+            Cell.layer.borderColor=[UIColor whiteColor].CGColor;}
+        else
+        {
+            Cell.Date.text = [[arrayofMutable objectAtIndex:indexPath.row] stringValue];
+            Cell.layer.borderWidth=1.0f;
+            Cell.layer.borderColor=[UIColor lightGrayColor].CGColor;
+           
+        }
     }
-*/
-    
-    cell.layer.borderWidth=1.0f;
-    cell.layer.borderColor=[UIColor lightGrayColor].CGColor;
-    
-//    if (self.selectedItemIndexPath != nil && [indexPath compare:self.selectedItemIndexPath] == NSOrderedSame) {
-//        cell.layer.borderColor = [[UIColor redColor] CGColor];
-//        cell.layer.borderWidth = 4.0;
-//    } else {
-//        cell.layer.borderColor = nil;
-//        cell.layer.borderWidth = 0.0;
-//    }
-    
-//    if (cell.selected) {
-//        cell.backgroundColor = [UIColor blueColor]; // highlight selection
-//    }
-//    else
-//    {
-//        cell.backgroundColor = [UIColor whiteColor]; // Default color
-//    }
-    
-    //  next line will be connect to collection view image like @property
-    cell.Date.text = [Dates objectAtIndex:indexPath.row];
-    cell.Date.textColor = [UIColor colorWithRed:180.0/255.0 green:6.0/255.0 blue:47.0/255.0 alpha:1.0];
-    cell.Date.font = [UIFont fontWithName:@"American Typewriter" size:18];
-    
-    cell.Price.text = [price objectAtIndex:indexPath.row];
-    return cell;
+    return Cell;
+
 }
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
@@ -156,18 +200,100 @@
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
     
-/**/
-//     Need to check for error...
- 
-    NSString * dateOnly = [self dateToFormatedDate:MonthsArray[section]];
+    NSString * week = [StartingweekDateofMonth objectAtIndex:section];
+    NSString * Noofdays = [NooFDaysInMonth objectAtIndex:section];
     
-//    MonthsArray[section];
-    NSLog(@"%@",dateOnly);
-//    NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
-//    [dateFormat setDateFormat:@"yyyy-MM-dd HH:mm:ss Z"];
-//    NSDate *date = [dateFormat dateFromString:dateOnly];
-//    NSLog(@"%@",date);
-   return 30;
+    NSArray * emptyValueArray;
+    NSInteger countr = [Noofdays integerValue];
+    
+    if ([week isEqualToString:@"Sunday"]) {
+        SecondArrayDays = [[NSMutableArray alloc] init];
+        for(integers = 1; integers <= countr; integers++) {
+            [SecondArrayDays addObject:[NSNumber numberWithInt: integers]];
+        }
+        
+        Dates = [NSMutableArray arrayWithArray:SecondArrayDays];
+        [dateForCount addObject:Dates];
+        
+        return countr; }
+    else if ([week isEqualToString:@"Monday"])
+    {
+        emptyValueArray = @[@0];
+        SecondArrayDays = [[NSMutableArray alloc] init];
+        for(integers = 1; integers <= countr; integers++) {
+            [SecondArrayDays addObject:[NSNumber numberWithInt: integers]];
+        }
+        
+        Dates = [NSMutableArray arrayWithArray:emptyValueArray];
+        [Dates addObjectsFromArray: SecondArrayDays];
+        [dateForCount addObject:Dates];
+        
+        return [Dates count];}
+    else if ([week isEqualToString:@"Tuesday"])
+    {
+        emptyValueArray = @[@0,@0];
+        SecondArrayDays = [[NSMutableArray alloc] init];
+        for(integers = 1; integers <= countr; integers++) {
+            [SecondArrayDays addObject:[NSNumber numberWithInt: integers]];
+        }
+        
+        Dates = [NSMutableArray arrayWithArray:emptyValueArray];
+        [Dates addObjectsFromArray: SecondArrayDays];
+        [dateForCount addObject:Dates];
+        
+        return [Dates count];}
+    else if ([week isEqualToString:@"Wednesday"])
+    {
+        emptyValueArray = @[@0,@0,@0];
+        SecondArrayDays = [[NSMutableArray alloc] init];
+        for(integers = 1; integers <= countr; integers++) {
+            [SecondArrayDays addObject:[NSNumber numberWithInt: integers]];
+        }
+        
+        Dates = [NSMutableArray arrayWithArray:emptyValueArray];
+        [Dates addObjectsFromArray: SecondArrayDays];
+        [dateForCount addObject:Dates];
+        
+        return [Dates count];}
+    else if ([week isEqualToString:@"Thursday"])
+    {
+        emptyValueArray = @[@0,@0,@0,@0];
+        SecondArrayDays = [[NSMutableArray alloc] init];
+        for(integers = 1; integers <= countr; integers++) {
+            [SecondArrayDays addObject:[NSNumber numberWithInt: integers]];
+        }
+        
+        Dates = [NSMutableArray arrayWithArray:emptyValueArray];
+        [Dates addObjectsFromArray: SecondArrayDays];
+        [dateForCount addObject:Dates];
+        
+        return [Dates count];}
+    else if ([week isEqualToString:@"Friday"])
+    {
+        emptyValueArray = @[@0,@0,@0,@0,@0];
+        SecondArrayDays = [[NSMutableArray alloc] init];
+        for(integers = 1; integers <= countr; integers++) {
+            [SecondArrayDays addObject:[NSNumber numberWithInt: integers]];
+        }
+        
+        Dates = [NSMutableArray arrayWithArray:emptyValueArray];
+        [Dates addObjectsFromArray: SecondArrayDays];
+        [dateForCount addObject:Dates];
+        
+        return [Dates count];}
+    else
+    {
+        emptyValueArray = @[@0,@0,@0,@0,@0,@0];
+        SecondArrayDays = [[NSMutableArray alloc] init];
+        for(integers = 1; integers <= countr; integers++) {
+            [SecondArrayDays addObject:[NSNumber numberWithInt: integers]];
+        }
+        
+        Dates = [NSMutableArray arrayWithArray:emptyValueArray];
+        [Dates addObjectsFromArray: SecondArrayDays];
+        [dateForCount addObject:Dates];
+        
+        return [Dates count];}
 }
 
 -(NSString *)dateToFormatedDate:(NSString *)dateStr {

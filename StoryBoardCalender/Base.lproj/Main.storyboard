@@ -44,17 +44,8 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pMj-du-2Ex">
-                                                    <rect key="frame" x="3" y="4" width="37" height="20.5"/>
+                                                    <rect key="frame" x="11" y="15" width="21" height="20.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="99999" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Ng-sD-AtX">
-                                                    <rect key="frame" x="1" y="28.5" width="41" height="18"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="18" id="qXc-pV-znF"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -62,16 +53,11 @@
                                         </view>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstItem="pMj-du-2Ex" firstAttribute="top" secondItem="trD-SW-7aM" secondAttribute="topMargin" constant="-4" id="MfL-T2-gag"/>
-                                            <constraint firstItem="pMj-du-2Ex" firstAttribute="leading" secondItem="trD-SW-7aM" secondAttribute="leadingMargin" constant="-5" id="fyO-sa-tRz"/>
-                                            <constraint firstItem="pMj-du-2Ex" firstAttribute="centerX" secondItem="trD-SW-7aM" secondAttribute="centerX" id="i9x-Ak-5sF"/>
-                                            <constraint firstItem="0Ng-sD-AtX" firstAttribute="top" secondItem="pMj-du-2Ex" secondAttribute="bottom" constant="4" id="lVe-PC-ZjH"/>
-                                            <constraint firstItem="0Ng-sD-AtX" firstAttribute="leading" secondItem="trD-SW-7aM" secondAttribute="leadingMargin" constant="-7" id="wBC-ao-RWq"/>
-                                            <constraint firstItem="pMj-du-2Ex" firstAttribute="centerX" secondItem="0Ng-sD-AtX" secondAttribute="centerX" id="yr9-fH-o5w"/>
+                                            <constraint firstItem="pMj-du-2Ex" firstAttribute="centerX" secondItem="trD-SW-7aM" secondAttribute="centerX" id="MvD-pZ-a4N"/>
+                                            <constraint firstItem="pMj-du-2Ex" firstAttribute="centerY" secondItem="trD-SW-7aM" secondAttribute="centerY" id="tAt-wp-PpL"/>
                                         </constraints>
                                         <connections>
                                             <outlet property="Date" destination="pMj-du-2Ex" id="JDp-OE-TyX"/>
-                                            <outlet property="Price" destination="0Ng-sD-AtX" id="p5u-K0-5f7"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
